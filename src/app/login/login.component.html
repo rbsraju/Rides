@@ -1,0 +1,52 @@
+<!-- <ng-content></ng-content>
+
+{{UserDetails}}
+<ng-content></ng-content>
+<ng-content  select="app-login"></ng-content>
+<ng-content select="avr-available-rides"></ng-content> -->
+{{login | json}}
+<!DOCTYPE html>
+<!-- Designined by CodingLab - youtube.com/codinglabyt -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> Login </title>
+
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+  <div class="container">
+    <div class="title">Login</div>
+    <div class="content">
+      <form action="#" (ngSubmit)="loginCred()">
+        <div class="user-details">
+          
+          
+          <div class="input-box">
+            <span class="details">Email</span>
+            <input type="text" [(ngModel)] ="login.username" placeholder="Enter your email" required>
+          </div>
+          
+        
+          <div class="input-box">
+            <span class="details">Password</span>
+            <input type="text"[(ngModel)]="login.password" placeholder="Enter your password" required>
+          </div>
+          
+        </div>
+      
+     
+        <div class="button">
+          <input type="submit" value="Login">
+        </div>
+        <div class="input-box">
+         
+          
+        </div>
+        <a routerLink="register">Register</a>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>
