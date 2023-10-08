@@ -19,6 +19,10 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { FormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { APP_CONFIG, APP_SERVICE_CONFIG } from './AppConfig/appConfig';
+import { RequestInterceptor } from './request.interceptor';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -45,9 +49,22 @@ import { FormsModule } from '@angular/forms';
     MatGridListModule,
     MatCardModule,
     MatMenuModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
+   
+    
   ],
-  providers: [],
+  providers: [
+    {
+      provide:APP_SERVICE_CONFIG,
+      useValue:APP_CONFIG,
+    },{
+      provide:HTTP_INTERCEPTORS ,
+      useClass:RequestInterceptor ,
+      multi: true,
+    },
+   
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

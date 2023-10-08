@@ -11,70 +11,173 @@
   <body>
     <section class="container">
       <header>Registration Form</header>
-      <form action="#" class="form">
+      <form
+        action="#"
+        class="form"
+        #regForm="ngForm"
+        (ngSubmit)="postUserDetails(regForm)"
+      >
         <div class="input-box">
           <label>Full Name</label>
-          <input type="text" placeholder="Enter full name" required />
+          <input
+            type="text"
+            placeholder="Enter full name"
+            name="name"
+            [(ngModel)]="usersList.Name"
+            required
+          />
         </div>
 
         <div class="input-box">
           <label>Email Address</label>
-          <input type="text" placeholder="Enter email address" required />
+          <input
+            type="text"
+            placeholder="Enter email address"
+            name="email"
+            pattern="^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$"
+            [(ngModel)]="usersList.email"
+            required
+            #email="ngModel"
+          />
+        </div>
+
+        <div class="alert alert-danger" *ngIf="email.errors?.['pattern']">
+            Invalid Email Address
         </div>
 
         <div class="column">
           <div class="input-box">
             <label>Phone Number</label>
-            <input type="number" placeholder="Enter phone number" required />
+            <input
+              type="number"
+              placeholder="Enter phone number"
+              name="phonenumber"
+              [(ngModel)]="usersList.phoneNumber"
+              required
+            />
           </div>
         </div>
         <div class="gender-box">
           <h3>Gender</h3>
           <div class="gender-option">
             <div class="gender">
-              <input type="radio" id="check-male" name="gender" checked />
+              <input
+                type="radio"
+                id="check-male"
+                name="gender"
+                [(ngModel)]="usersList.gender"
+                checked
+              />
               <label for="check-male">male</label>
             </div>
             <div class="gender">
-              <input type="radio" id="check-female" name="gender" />
+              <input
+                type="radio"
+                id="check-female"
+                name="gender"
+                [(ngModel)]="usersList.gender"
+              />
               <label for="check-female">Female</label>
             </div>
             <div class="gender">
-              <input type="radio" id="check-other" name="gender" />
+              <input
+                type="radio"
+                id="check-other"
+                name="gender"
+                [(ngModel)]="usersList.gender"
+              />
               <label for="check-other">prefer not to say</label>
             </div>
           </div>
         </div>
         <div class="select-box">
           <select>
-            <option hidden>Catogery</option>
-            <option>Driver</option>
-            <option>Customer</option>
+            <option [(ngModel)]="usersList.category" name="category" hidden>
+              Catogery
+            </option>
+            <option name="driver" [(ngModel)]="usersList.category">
+              Driver
+            </option>
+            <option name="customer" [(ngModel)]="usersList.category">
+              Customer
+            </option>
           </select>
         </div>
         <div class="input-box address">
           <label>Address</label>
-          <input type="text" placeholder="Enter street address" required />
           <input
             type="text"
+            placeholder="Enter street address"
+            [(ngModel)]="usersList.streetAddressLine1"
+            name="addessine1"
+            required
+          />
+          <input
+            type="text"
+            [(ngModel)]="usersList.streetAddressLine2"
             placeholder="Enter street address line 2"
+            name="addressLine2"
             required
           />
 
           <div class="column">
-            <input type="text" placeholder="Enter your city" required />
-            <input type="text" placeholder="Postal Code" required />
+            <input
+              type="text"
+              placeholder="Enter your city"
+              name="city"
+              [(ngModel)]="usersList.city"
+              required
+            />
+            <input
+              type="text"
+              placeholder="Postal Code"
+              name="postalCode"
+              [(ngModel)]="usersList.postalCode"
+              required
+            />
           </div>
         </div>
 
         <div class="input-box">
           <label>Password</label>
-          <input type="password" placeholder="Password" required />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            [(ngModel)]="usersList.password"
+            required
+            minlength="5"
+            maxlength="15"
+            pattern="/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{5,15}$/"
+             #passValidation="ngModel"
+          />
+         
+            <div class="alert alert-danger" *ngIf="passValidation.errors?.['minlength']">
+              Password must be at least 5 characters long
+            </div>
+            <div class="alert alert-danger" *ngIf="passValidation.errors?.['pattern']">
+              Invalid Password
+            </div>
+          
         </div>
         <div class="input-box">
-          <input type="password" placeholder="Conform Password" required />
+          <input
+            type="password"
+            placeholder="Conform Password"
+            name="conformPassword"
+            validateEqual="passValidation"
+            required
+            [(ngModel)]="usersList.conformPassword"
+             #ConfPassValidation="ngModel"
+          />
+       
         </div>
-        <button>Submit</button>
+       
+          <span class="alert alert-danger" *ngIf="!ConfPassValidation.value==passValidation.value">
+            Passwords do not match
+          </span>
+        
+        <button [disabled]="regForm.invalid">Submit</button>
         <p>Already Have any account</p>
         <a routerLink="login"> login</a>
       </form>

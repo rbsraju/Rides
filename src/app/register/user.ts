@@ -1,5 +1,5 @@
 export interface userDetails{
-    name: string;
+    Name: string;
     email: string;
     phoneNumber: string;
     gender: string;
@@ -10,6 +10,6 @@ export interface userDetails{
     city: string;
     postalCode: string;
     password: string;
-    confirmPassword: string;
+    conformPassword: string;
 
 }
